@@ -5,11 +5,16 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
     [Range(1f, 10f)]
-    private float _moveSpeedMultiplier = 2f;
+    private float _moveMulti = 2f;
+
+    [SerializeField]
+    [Range(1f, 10f)]
+    private float _accelMulti = 2f;
 
     private PlayerInput _input;
 
     [SerializeField]
+    private float _targetSpeed = 0f;
     private float _moveSpeed = 0f;
 
     private Rigidbody _rb;
@@ -20,11 +25,11 @@ public class PlayerMovement : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
 
         _input.Player.LeftRight.performed += ctx => {
-            _moveSpeed = ctx.ReadValue<float>();
+            _targetSpeed = ctx.ReadValue<float>() * _moveMulti;
         };
 
         _input.Player.LeftRight.canceled += ctx => {
-            _moveSpeed = 0f;
+            _targetSpeed = 0f;
         };
     }
 
@@ -40,10 +45,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
 
-        Vector3 force = new Vector3(_moveSpeed * _moveSpeedMultiplier, 0f, 0f);
-        _rb.AddForce(force, ForceMode.Impulse);
+        Vector3 pos = new Vector3(transform.position.x + _targetSpeed, transform.position.y, 0f);
+        transform.position = Vector3.Lerp(transform.position, pos, Time.deltaTime * _accelMulti);
     }
 }
