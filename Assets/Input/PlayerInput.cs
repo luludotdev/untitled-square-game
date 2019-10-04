@@ -24,6 +24,14 @@ public class PlayerInput : IInputActionCollection
                     ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""f3d57525-76e4-4bd9-b07f-e578f15c8e65"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -70,6 +78,28 @@ public class PlayerInput : IInputActionCollection
                     ""action"": ""Left/Right"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6392db93-0bc6-4122-84d7-d1a41370d40d"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e9633600-1e31-475d-bd91-e3afec652e04"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -96,6 +126,7 @@ public class PlayerInput : IInputActionCollection
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_LeftRight = m_Player.FindAction("Left/Right", throwIfNotFound: true);
+        m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
     }
 
     ~PlayerInput()
@@ -146,11 +177,13 @@ public class PlayerInput : IInputActionCollection
     private readonly InputActionMap m_Player;
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_LeftRight;
+    private readonly InputAction m_Player_Jump;
     public struct PlayerActions
     {
         private PlayerInput m_Wrapper;
         public PlayerActions(PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @LeftRight => m_Wrapper.m_Player_LeftRight;
+        public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -163,6 +196,9 @@ public class PlayerInput : IInputActionCollection
                 LeftRight.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeftRight;
                 LeftRight.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeftRight;
                 LeftRight.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeftRight;
+                Jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                Jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                Jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -170,6 +206,9 @@ public class PlayerInput : IInputActionCollection
                 LeftRight.started += instance.OnLeftRight;
                 LeftRight.performed += instance.OnLeftRight;
                 LeftRight.canceled += instance.OnLeftRight;
+                Jump.started += instance.OnJump;
+                Jump.performed += instance.OnJump;
+                Jump.canceled += instance.OnJump;
             }
         }
     }
@@ -195,5 +234,6 @@ public class PlayerInput : IInputActionCollection
     public interface IPlayerActions
     {
         void OnLeftRight(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
     }
 }

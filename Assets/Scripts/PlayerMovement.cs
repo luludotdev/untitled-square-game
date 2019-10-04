@@ -19,7 +19,11 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody _rb;
 
-    void Awake ()
+    [SerializeField]
+    [Range(1f, 50f)]
+    private float _jumpForce = 5f;
+
+    void Awake()
     {
         _input = new PlayerInput();
         _rb = GetComponent<Rigidbody>();
@@ -30,6 +34,10 @@ public class PlayerMovement : MonoBehaviour
 
         _input.Player.LeftRight.canceled += ctx => {
             _targetSpeed = 0f;
+        };
+
+        _input.Player.Jump.performed += ctx => {
+            Jump();
         };
     }
 
@@ -49,5 +57,10 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 pos = new Vector3(transform.position.x + _targetSpeed, transform.position.y, 0f);
         transform.position = Vector3.Lerp(transform.position, pos, Time.deltaTime * _accelMulti);
+    }
+
+    void Jump()
+    {
+        _rb.AddForce(new Vector3(0f, _jumpForce * 9.81f, 0f), ForceMode.Impulse);
     }
 }
