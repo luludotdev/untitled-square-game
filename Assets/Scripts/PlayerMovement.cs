@@ -117,6 +117,7 @@ public class PlayerMovement : MonoBehaviour
 
         _rb.velocity = new Vector3(_rb.velocity.x, 0f, _rb.velocity.z);
         _rb.AddForce(new Vector3(0f, _jumpForce * 9.81f, 0f), ForceMode.Impulse);
+        _anim.SetBool("IsJump", true);
         _currentJumps += 1;
     }
 
@@ -140,6 +141,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Floor")) {
             _currentJumps = 0;
+            _anim.SetBool("IsJump", false);
         }
     }
 }
