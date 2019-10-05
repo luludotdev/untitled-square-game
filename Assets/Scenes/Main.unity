@@ -700,6 +700,7 @@ GameObject:
   - component: {fileID: 1863803738}
   - component: {fileID: 1863803740}
   - component: {fileID: 1863803741}
+  - component: {fileID: 1863803742}
   m_Layer: 0
   m_Name: Player vCam
   m_TagString: Untagged
@@ -784,3 +785,17 @@ MonoBehaviour:
   m_FocusTracksTarget: 0
   m_FocusOffset: 0
   m_Profile: {fileID: 11400000, guid: cbf818672c7cada40905f4bee9ee262e, type: 2}
+--- !u!114 &1863803742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1863803737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8f579109d0f55844baad7dd99b492b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VirtualCamera: {fileID: 1863803738}
+  _zoomSpeed: 3
