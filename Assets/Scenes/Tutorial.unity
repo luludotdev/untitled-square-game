@@ -162,7 +162,7 @@ GameObject:
   - component: {fileID: 401578198}
   - component: {fileID: 401578197}
   - component: {fileID: 401578196}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -375,7 +375,7 @@ GameObject:
   - component: {fileID: 979682744}
   - component: {fileID: 979682743}
   - component: {fileID: 979682742}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Floor (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -139,7 +139,14 @@ public class PlayerMovement : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Floor")) {
+        bool isFloor = false;
+        for (int i = 0; i < collision.contactCount; i++)
+        {
+            ContactPoint contact = collision.GetContact(i);
+            if (contact.normal.y == 1f) isFloor = true;
+        }
+
+        if (isFloor) {
             _currentJumps = 0;
             _anim.SetBool("IsJump", false);
         }
