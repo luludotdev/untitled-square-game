@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -118,6 +118,13 @@ public class PlayerMovement : MonoBehaviour
             Vector3 drag = new Vector3(xVelocity * -1f * _dragForce, 0f, 0f);
             _rb.AddForce(drag, ForceMode.Impulse);
         }
+
+        if (!_isTouchingGround && _isTouchingWall == Wall.None) {
+            _anim.SetBool("IsFreefall", true);
+            Debug.Log(_isTouchingGround);
+        } else {
+            _anim.SetBool("IsFreefall", false);
+        }
     }
 
     void Jump()
@@ -140,7 +147,9 @@ public class PlayerMovement : MonoBehaviour
         _rb.AddForce(new Vector3(_jumpForce * wallForce * 10f, _jumpForce * 9.81f, 0f), ForceMode.Impulse);
 
         _currentJumps += 1;
-        _anim.SetInteger("IsJump", _currentJumps);
+        if (_currentJumps > 1) {
+            _anim.Play("PlayerJump", -1, 0f);
+        }
     }
 
     void Crouch()
@@ -172,7 +181,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (_isTouchingGround || (_abilities.Has(Ability.WallCling) && _isTouchingWall != Wall.None)) {
             _currentJumps = 0;
-            _anim.SetInteger("IsJump", _currentJumps);
         }
     }
 
