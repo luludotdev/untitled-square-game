@@ -190,25 +190,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision collision)
-    {
-        for (int i = 0; i < collision.contactCount; i++)
-        {
-            ContactPoint contact = collision.GetContact(i);
-            if (contact.normal.y == 1f) _isTouchingGround = true;
-
-            if (contact.normal.x == 1f) _isTouchingWall = Wall.Left;
-            if (contact.normal.x == -1f) _isTouchingWall = Wall.Right;
-        }
-
-        if (_isTouchingGround) {
-            _lastWall = Wall.None;
-            ResetJumps();
-        } else if (_abilities.Has(Ability.WallCling) && _isTouchingWall != Wall.None && _lastWall != _isTouchingWall) {
-            ResetJumps();
-        }
-    }
-
     void ResetJumps() {
         _currentJumps = 0;
     }
@@ -227,10 +208,18 @@ public class PlayerMovement : MonoBehaviour
         }
 
         _isTouchingWall = leftWall ? Wall.Left : rightWall ? Wall.Right : Wall.None;
+
+        if (_isTouchingGround) {
+            _lastWall = Wall.None;
+            ResetJumps();
+        } else if (_abilities.Has(Ability.WallCling) && _isTouchingWall != Wall.None && _lastWall != _isTouchingWall) {
+            ResetJumps();
+        }
+
+        if (_lastWall != _isTouchingWall) _lastWall = _isTouchingWall;
     }
 
     void OnCollisionExit() {
-        _lastWall = _isTouchingWall;
         _isTouchingGround = false;
         _isTouchingWall = Wall.None;
     }
