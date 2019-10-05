@@ -5,7 +5,7 @@ using UnityEngine.Events;
 [Flags] public enum Ability {
     None = 0,
     Jump = 1 << 0,
-    Dummy = 1 << 1,
+    DoubleJump = 1 << 1,
 }
 
 public class PlayerAbilities : MonoBehaviour

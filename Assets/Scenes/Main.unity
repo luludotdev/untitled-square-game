@@ -217,7 +217,7 @@ GameObject:
   - component: {fileID: 401578198}
   - component: {fileID: 401578197}
   - component: {fileID: 401578196}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -291,8 +291,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 401578195}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3.973, z: 0}
-  m_LocalScale: {x: 126.86, y: 7.94995, z: 1}
+  m_LocalPosition: {x: 0, y: -4, z: 0}
+  m_LocalScale: {x: 125, y: 8, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -519,6 +519,7 @@ GameObject:
   - component: {fileID: 1596966097}
   - component: {fileID: 1596966101}
   - component: {fileID: 1596966102}
+  - component: {fileID: 1596966103}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -631,6 +632,19 @@ MonoBehaviour:
   _accelMulti: 2
   _targetSpeed: 0
   _jumpForce: 7.5
+--- !u!114 &1596966103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1596966096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 680a28e73d7ec3d40bc4d974e3bf37cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _abilities: 0
 --- !u!1 &1863803737
 GameObject:
   m_ObjectHideFlags: 0

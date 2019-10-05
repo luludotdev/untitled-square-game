@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(PlayerAbilities))]
@@ -25,6 +26,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     [Range(1f, 50f)]
     private float _jumpForce = 5f;
+
+    private int _currentJumps = 0;
 
     void Awake()
     {
@@ -65,8 +68,22 @@ public class PlayerMovement : MonoBehaviour
 
     void Jump()
     {
-        if (_abilities.Has(Ability.Jump) == false) return;
+        int jumpsAvailable = _abilities.Has(Ability.DoubleJump)
+            ? 2
+            : _abilities.Has(Ability.Jump)
+            ? 1
+            : 0;
+
+        if (_currentJumps >= jumpsAvailable) return;
 
         _rb.AddForce(new Vector3(0f, _jumpForce * 9.81f, 0f), ForceMode.Impulse);
+        _currentJumps += 1;
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Floor")) {
+            _currentJumps = 0;
+        }
     }
 }
