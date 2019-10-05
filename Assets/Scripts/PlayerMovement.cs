@@ -201,6 +201,17 @@ public class PlayerMovement : MonoBehaviour
         _anim.SetInteger("IsJump", _currentJumps);
     }
 
+    void OnCollisionStay(Collision collision) {
+        for (int i = 0; i < collision.contactCount; i++)
+        {
+            ContactPoint contact = collision.GetContact(i);
+            if (contact.normal.y == 1f) _isTouchingGround = true;
+
+            if (contact.normal.x == 1f) _isTouchingWall = Wall.Left;
+            if (contact.normal.x == -1f) _isTouchingWall = Wall.Right;
+        }
+    }
+
     void OnCollisionExit() {
         _lastWall = _isTouchingWall;
         _isTouchingGround = false;
