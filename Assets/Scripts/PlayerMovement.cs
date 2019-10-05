@@ -100,8 +100,8 @@ public class PlayerMovement : MonoBehaviour
         float absoluteVelocity = Mathf.Abs(xVelocity);
 
         if (absoluteVelocity > _maxVelocity) {
-            Vector3 force = new Vector3(xVelocity * -1f * _dragForce, 0f, 0f);
-            _rb.AddForce(force, ForceMode.Impulse);
+            Vector3 drag = new Vector3(xVelocity * -1f * _dragForce, 0f, 0f);
+            _rb.AddForce(drag, ForceMode.Impulse);
         }
     }
 
