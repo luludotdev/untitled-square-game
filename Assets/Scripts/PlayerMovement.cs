@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(PlayerAbilities))]
 public class PlayerMovement : MonoBehaviour
 {
+    private PlayerAbilities _abilities;
+
     [SerializeField]
     [Range(1f, 10f)]
     private float _moveMulti = 2f;
@@ -25,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Awake()
     {
+        _abilities = GetComponent<PlayerAbilities>();
         _input = new PlayerInput();
         _rb = GetComponent<Rigidbody>();
 
@@ -61,6 +65,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Jump()
     {
+        if (_abilities.Has(Ability.Jump) == false) return;
+
         _rb.AddForce(new Vector3(0f, _jumpForce * 9.81f, 0f), ForceMode.Impulse);
     }
 }
