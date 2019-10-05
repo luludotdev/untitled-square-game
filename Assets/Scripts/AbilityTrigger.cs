@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class AbilityTrigger : MonoBehaviour
 {
-    [SerializeField]
     private PlayerAbilities _abilities;
 
     [SerializeField]
@@ -14,9 +13,9 @@ public class AbilityTrigger : MonoBehaviour
 
     void Start()
     {
-        if (_abilities == null) throw new NullReferenceException("Player Abilities cannot be null!");
         if (_collider == null) throw new NullReferenceException("Collider cannot be null!");
 
+        _abilities = PlayerAbilities.instance;
         _collider.isTrigger = true;
     }
 

@@ -13,6 +13,8 @@ using UnityEngine.Events;
 
 public class PlayerAbilities : MonoBehaviour
 {
+    public static PlayerAbilities instance;
+
     public UnityAction<Ability> AbilityUnlocked;
 
     [SerializeField]
@@ -25,5 +27,9 @@ public class PlayerAbilities : MonoBehaviour
     public void Unlock(Ability ability) {
         _abilities = _abilities | ability;
         AbilityUnlocked?.Invoke(ability);
+    }
+
+    void Start() {
+        instance = this;
     }
 }
