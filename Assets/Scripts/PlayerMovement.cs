@@ -13,11 +13,15 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField]
     [Range(1f, 10f)]
-    private float _accelMulti = 2f;
+    private float _maxVelocity = 2f;
 
     [SerializeField]
     [Range(0.005f, 1f)]
     private float _crouchMulti = 0.8f;
+
+    [SerializeField]
+    [Range(1f, 10f)]
+    private float _dragForce = 1f;
 
     private PlayerInput _input;
 
@@ -80,16 +84,25 @@ public class PlayerMovement : MonoBehaviour
         _input.Player.Disable();
     }
 
-    void Update()
-    {
+    void Update() {
         transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
+    }
 
+    void FixedUpdate()
+    {
         float speed = _isCrouching
             ? _targetSpeed * _crouchMulti
             : _targetSpeed;
 
-        Vector3 pos = new Vector3(transform.position.x + speed, transform.position.y, 0f);
-        transform.position = Vector3.Lerp(transform.position, pos, Time.deltaTime * _accelMulti);
+        _rb.AddForce(new Vector3(speed, 0f, 0f), ForceMode.Impulse);
+
+        float xVelocity = _rb.velocity.x;
+        float absoluteVelocity = Mathf.Abs(xVelocity);
+
+        if (absoluteVelocity > _maxVelocity) {
+            Vector3 force = new Vector3(xVelocity * -1f * _dragForce, 0f, 0f);
+            _rb.AddForce(force, ForceMode.Impulse);
+        }
     }
 
     void Jump()
