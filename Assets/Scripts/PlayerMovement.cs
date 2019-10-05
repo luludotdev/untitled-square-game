@@ -115,6 +115,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (_currentJumps >= jumpsAvailable) return;
 
+        _rb.velocity = new Vector3(_rb.velocity.x, 0f, _rb.velocity.z);
         _rb.AddForce(new Vector3(0f, _jumpForce * 9.81f, 0f), ForceMode.Impulse);
         _currentJumps += 1;
     }
