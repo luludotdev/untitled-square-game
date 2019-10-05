@@ -41,7 +41,9 @@ public class PlayerMovement : MonoBehaviour
 
     private bool _isTouchingGround = false;
     private bool _isCrouching = false;
+
     private Wall _isTouchingWall = Wall.None;
+    private Wall _lastWall = Wall.None;
 
     private enum Wall {
         None,
@@ -103,8 +105,24 @@ public class PlayerMovement : MonoBehaviour
             : _targetSpeed;
 
         Vector3 force = new Vector3(speed, 0f, 0f);
-        if (_isTouchingWall == Wall.None || _abilities.Has(Ability.WallCling)) {
+        bool canCling = _abilities.Has(Ability.WallCling);
+
+        if (_isTouchingWall == Wall.None) {
             _rb.AddForce(force, ForceMode.Impulse);
+        } else if (canCling) {
+            int jumpsAvailable = _abilities.Has(Ability.DoubleJump)
+                ? 2
+                : _abilities.Has(Ability.Jump)
+                ? 1
+                : 0;
+
+            if (_currentJumps < jumpsAvailable) {
+                _rb.AddForce(force, ForceMode.Impulse);
+            } else {
+                if ((_isTouchingWall == Wall.Left && speed > 0) || (_isTouchingWall == Wall.Right && speed < 0)) {
+                    _rb.AddForce(force, ForceMode.Impulse);
+                }
+            }
         } else {
             if ((_isTouchingWall == Wall.Left && speed > 0) || (_isTouchingWall == Wall.Right && speed < 0)) {
                 _rb.AddForce(force, ForceMode.Impulse);
@@ -170,13 +188,21 @@ public class PlayerMovement : MonoBehaviour
             if (contact.normal.x == -1f) _isTouchingWall = Wall.Right;
         }
 
-        if (_isTouchingGround || (_abilities.Has(Ability.WallCling) && _isTouchingWall != Wall.None)) {
-            _currentJumps = 0;
-            _anim.SetInteger("IsJump", _currentJumps);
+        if (_isTouchingGround) {
+            _lastWall = Wall.None;
+            ResetJumps();
+        } else if (_abilities.Has(Ability.WallCling) && _isTouchingWall != Wall.None && _lastWall != _isTouchingWall) {
+            ResetJumps();
         }
     }
 
+    void ResetJumps() {
+        _currentJumps = 0;
+        _anim.SetInteger("IsJump", _currentJumps);
+    }
+
     void OnCollisionExit() {
+        _lastWall = _isTouchingWall;
         _isTouchingGround = false;
         _isTouchingWall = Wall.None;
     }
