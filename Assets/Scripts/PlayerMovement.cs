@@ -23,6 +23,8 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody _rb;
 
+    private Animator _anim;
+
     [SerializeField]
     [Range(1f, 50f)]
     private float _jumpForce = 5f;
@@ -34,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
         _abilities = GetComponent<PlayerAbilities>();
         _input = new PlayerInput();
         _rb = GetComponent<Rigidbody>();
+        _anim = GetComponent<Animator>();
 
         _input.Player.LeftRight.performed += ctx => {
             float v = ctx.ReadValue<float>();
@@ -50,6 +53,14 @@ public class PlayerMovement : MonoBehaviour
 
         _input.Player.Jump.performed += ctx => {
             Jump();
+        };
+
+        _input.Player.Crouch.performed += ctx => {
+            Crouch();
+        };
+
+        _input.Player.Crouch.canceled += ctx => {
+            Uncrouch();
         };
     }
 
@@ -83,6 +94,20 @@ public class PlayerMovement : MonoBehaviour
 
         _rb.AddForce(new Vector3(0f, _jumpForce * 9.81f, 0f), ForceMode.Impulse);
         _currentJumps += 1;
+    }
+
+    void Crouch()
+    {
+        if (_abilities.Has(Ability.Crouch)) {
+            _anim.SetBool("IsCrouch", true);
+        }
+    }
+
+    void Uncrouch()
+    {
+        if (_abilities.Has(Ability.Crouch)) {
+            _anim.SetBool("IsCrouch", false);
+        }
     }
 
     void OnCollisionEnter(Collision collision)
