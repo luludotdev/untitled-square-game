@@ -36,7 +36,12 @@ public class PlayerMovement : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
 
         _input.Player.LeftRight.performed += ctx => {
-            _targetSpeed = ctx.ReadValue<float>() * _moveMulti;
+            float v = ctx.ReadValue<float>();
+
+            if (v > 0 && _abilities.Has(Ability.MoveRight) == false) return;
+            if (v < 0 && _abilities.Has(Ability.MoveLeft) == false) return;
+
+            _targetSpeed = v * _moveMulti;
         };
 
         _input.Player.LeftRight.canceled += ctx => {
