@@ -9,6 +9,7 @@ using UnityEngine.Events;
     Jump = 1 << 2,
     Crouch = 1 << 3,
     DoubleJump = 1 << 4,
+    WallCling = 1 << 5,
 }
 
 public class PlayerAbilities : MonoBehaviour
