@@ -214,14 +214,19 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void OnCollisionStay(Collision collision) {
+        bool leftWall = false;
+        bool rightWall = false;
+
         for (int i = 0; i < collision.contactCount; i++)
         {
             ContactPoint contact = collision.GetContact(i);
             if (contact.normal.y == 1f) _isTouchingGround = true;
 
-            if (contact.normal.x == 1f) _isTouchingWall = Wall.Left;
-            if (contact.normal.x == -1f) _isTouchingWall = Wall.Right;
+            if (contact.normal.x == 1f) leftWall = true;
+            if (contact.normal.x == -1f) rightWall = true;
         }
+
+        _isTouchingWall = leftWall ? Wall.Left : rightWall ? Wall.Right : Wall.None;
     }
 
     void OnCollisionExit() {
