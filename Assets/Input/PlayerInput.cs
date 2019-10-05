@@ -32,6 +32,14 @@ public class PlayerInput : IInputActionCollection
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Crouch"",
+                    ""type"": ""Button"",
+                    ""id"": ""4bf2e51e-a4f0-41cb-8480-50aff2f1b08f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -100,6 +108,28 @@ public class PlayerInput : IInputActionCollection
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7978b95e-234e-451a-9902-88f3cfa11c69"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dd45698f-7111-44a5-9cfa-e1cba048b027"",
+                    ""path"": ""<Gamepad>/leftStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -127,6 +157,7 @@ public class PlayerInput : IInputActionCollection
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_LeftRight = m_Player.FindAction("Left/Right", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
+        m_Player_Crouch = m_Player.FindAction("Crouch", throwIfNotFound: true);
     }
 
     ~PlayerInput()
@@ -178,12 +209,14 @@ public class PlayerInput : IInputActionCollection
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_LeftRight;
     private readonly InputAction m_Player_Jump;
+    private readonly InputAction m_Player_Crouch;
     public struct PlayerActions
     {
         private PlayerInput m_Wrapper;
         public PlayerActions(PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @LeftRight => m_Wrapper.m_Player_LeftRight;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
+        public InputAction @Crouch => m_Wrapper.m_Player_Crouch;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -199,6 +232,9 @@ public class PlayerInput : IInputActionCollection
                 Jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 Jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 Jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                Crouch.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCrouch;
+                Crouch.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCrouch;
+                Crouch.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCrouch;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -209,6 +245,9 @@ public class PlayerInput : IInputActionCollection
                 Jump.started += instance.OnJump;
                 Jump.performed += instance.OnJump;
                 Jump.canceled += instance.OnJump;
+                Crouch.started += instance.OnCrouch;
+                Crouch.performed += instance.OnCrouch;
+                Crouch.canceled += instance.OnCrouch;
             }
         }
     }
@@ -235,5 +274,6 @@ public class PlayerInput : IInputActionCollection
     {
         void OnLeftRight(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnCrouch(InputAction.CallbackContext context);
     }
 }

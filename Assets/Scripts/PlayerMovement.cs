@@ -15,6 +15,10 @@ public class PlayerMovement : MonoBehaviour
     [Range(1f, 10f)]
     private float _accelMulti = 2f;
 
+    [SerializeField]
+    [Range(0.005f, 1f)]
+    private float _crouchMulti = 0.8f;
+
     private PlayerInput _input;
 
     [SerializeField]
@@ -23,17 +27,22 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody _rb;
 
+    private Animator _anim;
+
     [SerializeField]
     [Range(1f, 50f)]
     private float _jumpForce = 5f;
 
     private int _currentJumps = 0;
 
+    private bool _isCrouching = false;
+
     void Awake()
     {
         _abilities = GetComponent<PlayerAbilities>();
         _input = new PlayerInput();
         _rb = GetComponent<Rigidbody>();
+        _anim = GetComponent<Animator>();
 
         _input.Player.LeftRight.performed += ctx => {
             float v = ctx.ReadValue<float>();
@@ -51,6 +60,14 @@ public class PlayerMovement : MonoBehaviour
         _input.Player.Jump.performed += ctx => {
             Jump();
         };
+
+        _input.Player.Crouch.performed += ctx => {
+            Crouch();
+        };
+
+        _input.Player.Crouch.canceled += ctx => {
+            Uncrouch();
+        };
     }
 
     void OnEnable()
@@ -67,7 +84,11 @@ public class PlayerMovement : MonoBehaviour
     {
         transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
 
-        Vector3 pos = new Vector3(transform.position.x + _targetSpeed, transform.position.y, 0f);
+        float speed = _isCrouching
+            ? _targetSpeed * _crouchMulti
+            : _targetSpeed;
+
+        Vector3 pos = new Vector3(transform.position.x + speed, transform.position.y, 0f);
         transform.position = Vector3.Lerp(transform.position, pos, Time.deltaTime * _accelMulti);
     }
 
@@ -83,6 +104,22 @@ public class PlayerMovement : MonoBehaviour
 
         _rb.AddForce(new Vector3(0f, _jumpForce * 9.81f, 0f), ForceMode.Impulse);
         _currentJumps += 1;
+    }
+
+    void Crouch()
+    {
+        if (_abilities.Has(Ability.Crouch)) {
+            _isCrouching = true;
+            _anim.SetBool("IsCrouch", true);
+        }
+    }
+
+    void Uncrouch()
+    {
+        if (_abilities.Has(Ability.Crouch)) {
+            _isCrouching = false;
+            _anim.SetBool("IsCrouch", false);
+        }
     }
 
     void OnCollisionEnter(Collision collision)
