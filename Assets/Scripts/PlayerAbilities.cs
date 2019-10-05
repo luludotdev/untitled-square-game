@@ -4,8 +4,11 @@ using UnityEngine.Events;
 
 [Flags] public enum Ability {
     None = 0,
-    Jump = 1 << 0,
-    DoubleJump = 1 << 1,
+    MoveRight = 1 << 0,
+    MoveLeft = 1 << 1,
+    Jump = 1 << 2,
+    Crouch = 1 << 3,
+    DoubleJump = 1 << 4,
 }
 
 public class PlayerAbilities : MonoBehaviour
