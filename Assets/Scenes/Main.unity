@@ -641,6 +641,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveMulti: 3.5
   _accelMulti: 2
+  _crouchMulti: 0.75
   _targetSpeed: 0
   _jumpForce: 7.5
 --- !u!114 &1596966103
