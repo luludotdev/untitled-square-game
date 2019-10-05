@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -13,11 +13,15 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField]
     [Range(1f, 10f)]
-    private float _accelMulti = 2f;
+    private float _maxVelocity = 2f;
 
     [SerializeField]
     [Range(0.005f, 1f)]
     private float _crouchMulti = 0.8f;
+
+    [SerializeField]
+    [Range(1f, 10f)]
+    private float _dragForce = 1f;
 
     private PlayerInput _input;
 
@@ -35,7 +39,15 @@ public class PlayerMovement : MonoBehaviour
 
     private int _currentJumps = 0;
 
+    private bool _isTouchingGround = false;
     private bool _isCrouching = false;
+    private Wall _isTouchingWall = Wall.None;
+
+    private enum Wall {
+        None,
+        Left,
+        Right,
+    }
 
     void Awake()
     {
@@ -80,16 +92,32 @@ public class PlayerMovement : MonoBehaviour
         _input.Player.Disable();
     }
 
-    void Update()
-    {
+    void Update() {
         transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
+    }
 
+    void FixedUpdate()
+    {
         float speed = _isCrouching
             ? _targetSpeed * _crouchMulti
             : _targetSpeed;
 
-        Vector3 pos = new Vector3(transform.position.x + speed, transform.position.y, 0f);
-        transform.position = Vector3.Lerp(transform.position, pos, Time.deltaTime * _accelMulti);
+        Vector3 force = new Vector3(speed, 0f, 0f);
+        if (_isTouchingWall == Wall.None || _abilities.Has(Ability.WallCling)) {
+            _rb.AddForce(force, ForceMode.Impulse);
+        } else {
+            if ((_isTouchingWall == Wall.Left && speed > 0) || (_isTouchingWall == Wall.Right && speed < 0)) {
+                _rb.AddForce(force, ForceMode.Impulse);
+            }
+        }
+
+        float xVelocity = _rb.velocity.x;
+        float absoluteVelocity = Mathf.Abs(xVelocity);
+
+        if (absoluteVelocity > _maxVelocity) {
+            Vector3 drag = new Vector3(xVelocity * -1f * _dragForce, 0f, 0f);
+            _rb.AddForce(drag, ForceMode.Impulse);
+        }
     }
 
     void Jump()
@@ -102,8 +130,17 @@ public class PlayerMovement : MonoBehaviour
 
         if (_currentJumps >= jumpsAvailable) return;
 
-        _rb.AddForce(new Vector3(0f, _jumpForce * 9.81f, 0f), ForceMode.Impulse);
+        _rb.velocity = new Vector3(_rb.velocity.x, 0f, _rb.velocity.z);
+
+        float wallForce = _isTouchingWall == Wall.None
+            ? 0f
+            : _isTouchingWall == Wall.Left
+            ? 1f
+            : -1f;
+        _rb.AddForce(new Vector3(_jumpForce * wallForce * 10f, _jumpForce * 9.81f, 0f), ForceMode.Impulse);
+
         _currentJumps += 1;
+        _anim.SetInteger("IsJump", _currentJumps);
     }
 
     void Crouch()
@@ -124,8 +161,23 @@ public class PlayerMovement : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Floor")) {
-            _currentJumps = 0;
+        for (int i = 0; i < collision.contactCount; i++)
+        {
+            ContactPoint contact = collision.GetContact(i);
+            if (contact.normal.y == 1f) _isTouchingGround = true;
+
+            if (contact.normal.x == 1f) _isTouchingWall = Wall.Left;
+            if (contact.normal.x == -1f) _isTouchingWall = Wall.Right;
         }
+
+        if (_isTouchingGround || (_abilities.Has(Ability.WallCling) && _isTouchingWall != Wall.None)) {
+            _currentJumps = 0;
+            _anim.SetInteger("IsJump", _currentJumps);
+        }
+    }
+
+    void OnCollisionExit() {
+        _isTouchingGround = false;
+        _isTouchingWall = Wall.None;
     }
 }
