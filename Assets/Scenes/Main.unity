@@ -639,7 +639,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27bb2028c7b7a7a4a9e7af82abe8c943, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveMulti: 8
+  _moveMulti: 10
   _maxVelocity: 2
   _crouchMulti: 0.75
   _dragForce: 1
