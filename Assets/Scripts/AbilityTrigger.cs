@@ -19,8 +19,9 @@ public class AbilityTrigger : MonoBehaviour
         _collider.isTrigger = true;
     }
 
-    void OnTriggerEnter()
+    void OnTriggerEnter(Collider other)
     {
+        if (other.tag != "Player") return;
         _abilities.Unlock(_ability);
     }
 

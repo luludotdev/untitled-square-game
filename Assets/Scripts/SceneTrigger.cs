@@ -25,8 +25,9 @@ public class SceneTrigger : MonoBehaviour
         _collider.isTrigger = true;
     }
 
-    void OnTriggerEnter()
+    void OnTriggerEnter(Collider other)
     {
+        if (other.tag != "Player") return;
         Scene scene = SceneManager.GetSceneByPath(_scene.ScenePath);
 
         if (_type == TriggerType.Load) StartCoroutine(LoadScene(scene));
