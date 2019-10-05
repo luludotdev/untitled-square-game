@@ -24,4 +24,10 @@ public class AbilityTrigger : MonoBehaviour
     {
         _abilities.Unlock(_ability);
     }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawWireCube(_collider.bounds.center, _collider.bounds.size);
+    }
 }
