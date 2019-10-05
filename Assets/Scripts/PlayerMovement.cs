@@ -166,7 +166,7 @@ public class PlayerMovement : MonoBehaviour
             : _isTouchingWall == Wall.Left
             ? 1f
             : -1f;
-        _rb.AddForce(new Vector3(_jumpForce * wallForce * 10f, _jumpForce * 9.81f, 0f), ForceMode.Impulse);
+        _rb.AddForce(new Vector3(_jumpForce * wallForce * 10f, _jumpForce * (Physics.gravity.y * -1f), 0f), ForceMode.Impulse);
 
         _currentJumps += 1;
         if (_currentJumps > 1) {
