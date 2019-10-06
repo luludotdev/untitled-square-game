@@ -82,6 +82,12 @@ public class PlayerMovement : MonoBehaviour
         _input.Player.Crouch.canceled += ctx => {
             Uncrouch();
         };
+
+        _input.Player.Reset.performed += ctx => {
+            if (_abilities.Has(Ability.Reset)) {
+                SpawnManager.instance.Respawn();
+            }
+        };
     }
 
     void OnEnable()

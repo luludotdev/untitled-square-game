@@ -40,6 +40,14 @@ public class PlayerInput : IInputActionCollection
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Reset"",
+                    ""type"": ""Button"",
+                    ""id"": ""d99afa65-9a70-4d3b-9db3-99f02b14a580"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -130,6 +138,28 @@ public class PlayerInput : IInputActionCollection
                     ""action"": ""Crouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""854663eb-2f46-4fce-9dd6-1426fcfb3e56"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Reset"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fbb68793-dddb-4433-a389-150e01dede3a"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Reset"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -158,6 +188,7 @@ public class PlayerInput : IInputActionCollection
         m_Player_LeftRight = m_Player.FindAction("Left/Right", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Crouch = m_Player.FindAction("Crouch", throwIfNotFound: true);
+        m_Player_Reset = m_Player.FindAction("Reset", throwIfNotFound: true);
     }
 
     ~PlayerInput()
@@ -210,6 +241,7 @@ public class PlayerInput : IInputActionCollection
     private readonly InputAction m_Player_LeftRight;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Crouch;
+    private readonly InputAction m_Player_Reset;
     public struct PlayerActions
     {
         private PlayerInput m_Wrapper;
@@ -217,6 +249,7 @@ public class PlayerInput : IInputActionCollection
         public InputAction @LeftRight => m_Wrapper.m_Player_LeftRight;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Crouch => m_Wrapper.m_Player_Crouch;
+        public InputAction @Reset => m_Wrapper.m_Player_Reset;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -235,6 +268,9 @@ public class PlayerInput : IInputActionCollection
                 Crouch.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCrouch;
                 Crouch.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCrouch;
                 Crouch.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCrouch;
+                Reset.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReset;
+                Reset.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReset;
+                Reset.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReset;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -248,6 +284,9 @@ public class PlayerInput : IInputActionCollection
                 Crouch.started += instance.OnCrouch;
                 Crouch.performed += instance.OnCrouch;
                 Crouch.canceled += instance.OnCrouch;
+                Reset.started += instance.OnReset;
+                Reset.performed += instance.OnReset;
+                Reset.canceled += instance.OnReset;
             }
         }
     }
@@ -275,5 +314,6 @@ public class PlayerInput : IInputActionCollection
         void OnLeftRight(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
+        void OnReset(InputAction.CallbackContext context);
     }
 }
