@@ -13,11 +13,15 @@ using UnityEngine.Events;
     Sound = 1 << 6,
 }
 
+[System.Serializable]
+ public class AbilityEvent : UnityEvent<Ability>{}
+
 public class PlayerAbilities : MonoBehaviour
 {
     public static PlayerAbilities instance;
 
-    public UnityAction<Ability> AbilityUnlocked;
+    [SerializeField]
+    public AbilityEvent AbilityUnlocked;
 
     [SerializeField]
     private Ability _abilities;
