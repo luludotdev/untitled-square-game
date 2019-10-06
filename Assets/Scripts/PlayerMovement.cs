@@ -1,6 +1,7 @@
-using System;
+﻿using System;
 using System.Collections;
 using UnityEngine;
+using Random=UnityEngine.Random;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(PlayerAbilities))]
@@ -46,6 +47,8 @@ public class PlayerMovement : MonoBehaviour
     private Wall _isTouchingWall = Wall.None;
     private Wall _lastWall = Wall.None;
 
+    private AudioSource _boing;
+
     private enum Wall {
         None,
         Left,
@@ -58,6 +61,7 @@ public class PlayerMovement : MonoBehaviour
         _input = new PlayerInput();
         _rb = GetComponent<Rigidbody>();
         _anim = GetComponent<Animator>();
+        _boing = GetComponent<AudioSource>();
 
         _input.Player.LeftRight.performed += ctx => {
             float v = ctx.ReadValue<float>();
@@ -169,6 +173,8 @@ public class PlayerMovement : MonoBehaviour
             : -1f;
 
         _rb.AddForce(new Vector3(_jumpForce * wallForce * 10f, _jumpForce * 9.81f, 0f), ForceMode.Impulse);
+        _boing.pitch = Random.Range(0.8f, 1.2f);
+        _boing.Play();
         StartCoroutine(AddJump());
     }
 
