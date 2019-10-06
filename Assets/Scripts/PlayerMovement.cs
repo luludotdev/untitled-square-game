@@ -173,8 +173,12 @@ public class PlayerMovement : MonoBehaviour
             : -1f;
 
         _rb.AddForce(new Vector3(_jumpForce * wallForce * 10f, _jumpForce * 9.81f, 0f), ForceMode.Impulse);
-        _boing.pitch = Random.Range(0.8f, 1.2f);
-        _boing.Play();
+
+        if (_abilities.Has(Ability.Sound)) {
+            _boing.pitch = Random.Range(0.8f, 1.2f);
+            _boing.Play();
+        }
+        
         StartCoroutine(AddJump());
     }
 
