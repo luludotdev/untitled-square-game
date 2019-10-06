@@ -52,7 +52,10 @@ public class SceneTrigger : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
+        Gizmos.color = _type == TriggerType.Load
+            ? new Color(.443f, .169f, .824f)
+            : new Color(.933f, .039f, .271f);
+
         Gizmos.DrawWireCube(_collider.bounds.center, _collider.bounds.size);
     }
 }
