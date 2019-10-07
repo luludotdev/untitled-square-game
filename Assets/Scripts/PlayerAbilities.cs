@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -30,9 +29,6 @@ public class PlayerAbilities : MonoBehaviour
 
     void Awake() {
         instance = this;
-
-        string ngpPath = Path.Combine(Application.persistentDataPath, "newgameplus.dat");
-        if (File.Exists(ngpPath)) UnlockAll();
     }
 
     public bool Has(Ability ability) {
@@ -44,7 +40,7 @@ public class PlayerAbilities : MonoBehaviour
         AbilityUnlocked?.Invoke(ability);
     }
 
-    void UnlockAll() {
+    public void UnlockAll() {
         _abilities = (Ability)(-1);
     }
 }

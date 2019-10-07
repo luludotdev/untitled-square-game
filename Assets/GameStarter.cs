@@ -1,5 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,6 +8,13 @@ public class GameStarter : MonoBehaviour
 {
     [SerializeField]
     private SceneReference _mainScene;
+
+    void Awake() {
+        string ngpPath = Path.Combine(Application.persistentDataPath, "newgameplus.dat");
+        bool showNewGamePlus = File.Exists(ngpPath);
+
+        // Do stuff
+    }
 
     public void StartGame() {
         SceneManager.LoadSceneAsync(_mainScene);
@@ -22,8 +30,7 @@ public class GameStarter : MonoBehaviour
         var task = SceneManager.LoadSceneAsync(_mainScene);
         while (!task.isDone) yield return null;
 
-        // Do stuff
-
+        PlayerAbilities.instance.UnlockAll();
         Destroy(this);
     }
 
