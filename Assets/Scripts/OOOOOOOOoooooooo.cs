@@ -1,27 +1,28 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class OOOOOOOOoooooooo : MonoBehaviour
 {
+    [SerializeField]
+    [Range(1f, 20f)]
+    private float _fadeSpeed = 10f;
 
     private AudioSource _oooo;
-    
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         _oooo = GetComponent<AudioSource>();
     }
 
-    
-    void FixedUpdate() {
-        if (_oooo.isPlaying && _oooo.volume < 1) {
-            _oooo.volume += Time.deltaTime / 5;
-        }
+    void Update() {
+        if (_oooo.isPlaying && _oooo.volume < 1f)
+            _oooo.volume += Time.deltaTime / _fadeSpeed;
+        else if (_oooo.volume > 1f)
+            _oooo.volume = 1f;
     }
 
     public void OoooTime(Ability ability) {
-        if (ability == Ability.Sound) {
+        if (ability == Ability.Sound)
             _oooo.Play();
-        }
     }
 }
