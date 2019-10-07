@@ -32,5 +32,6 @@ Downloads are available under the [releases](/releases) tab for the following pl
  - [Windows x64](https://github.com/lolPants/untitled-square-game/releases/download/v1.0.0/Untitled.Square.Game.win64.zip)
  - [macOS](https://github.com/lolPants/untitled-square-game/releases/download/v1.0.0/Untitled.Square.Game.darwin.zip)
  - [Linux](https://github.com/lolPants/untitled-square-game/releases/download/v1.0.0/Untitled.Square.Game.linux.zip)
+ - [HTML5](https://derpychap.github.io/untitled-square/)* ([Download](https://github.com/lolPants/untitled-square-game/releases/download/v1.0.0/Untitled.Square.Game.webgl.zip))
 
-Do note that all testing was done on Windows x64 so your mileage may vary.
+Do note that all testing was done on Windows x64 so your mileage may vary. The HTML5 build isn't recommended as the game was built with the desktop in mind, not the web, so you may encounter more issues with this build.
