@@ -8,12 +8,16 @@ public class GameStarter : MonoBehaviour
 {
     [SerializeField]
     private SceneReference _mainScene;
+    [SerializeField]
+    public GameObject _ngp;
 
     void Awake() {
         string ngpPath = Path.Combine(Application.persistentDataPath, "newgameplus.dat");
         bool showNewGamePlus = File.Exists(ngpPath);
 
-        // Do stuff
+        if (showNewGamePlus) {
+            _ngp.SetActive(true);
+        }
     }
 
     public void StartGame() {
