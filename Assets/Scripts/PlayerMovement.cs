@@ -49,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
 
     public AudioSource _boing;
     public AudioSource _bonk;
+    public AudioSource _oof;
 
     private enum Wall {
         None,
@@ -114,6 +115,10 @@ public class PlayerMovement : MonoBehaviour
 
     void Update() {
         transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
+    }
+
+    public void OnOof() {
+        PlaySound(_oof);
     }
 
     void FixedUpdate()
