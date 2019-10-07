@@ -130,13 +130,13 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void Update() {
-        if (_holdingJump) Jump(Time.deltaTime);
-
         transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
     }
 
     void FixedUpdate()
     {
+        if (_holdingJump) Jump(Time.deltaTime);
+
         float speed = _isCrouching
             ? _targetSpeed * _crouchMulti
             : _targetSpeed;
