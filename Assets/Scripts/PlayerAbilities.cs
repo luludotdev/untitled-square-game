@@ -36,7 +36,7 @@ public class PlayerAbilities : MonoBehaviour
         AbilityUnlocked?.Invoke(ability);
     }
 
-    void Start() {
+    void Awake() {
         instance = this;
     }
 }
