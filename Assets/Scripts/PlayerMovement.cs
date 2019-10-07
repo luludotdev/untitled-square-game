@@ -55,6 +55,7 @@ public class PlayerMovement : MonoBehaviour
 
     private float _maxJumpDuration = 0.5f;
     private bool _holdingJump = false;
+    private float _jumpPercentage = 0f;
     private bool _resetVelocity = false;
 
     void Awake()
@@ -80,10 +81,12 @@ public class PlayerMovement : MonoBehaviour
         };
 
         _input.Player.Jump.started += ctx => {
+            _jumpPercentage = 0f;
             _holdingJump = true;
         };
 
         _input.Player.Jump.performed += ctx => {
+            Jump(-1f);
             CompleteJump();
         };
 
@@ -199,6 +202,12 @@ public class PlayerMovement : MonoBehaviour
             _rb.velocity = new Vector3(_rb.velocity.x, 0f, _rb.velocity.z);
         }
 
+        float _remappedTime = deltaTime == -1f
+            ? 1f - _jumpPercentage
+            : deltaTime / _maxJumpDuration;
+
+        _jumpPercentage += _remappedTime;
+
         float wallForce = _isTouchingWall == Wall.None
             ? 0f
             : _isTouchingWall == Wall.Left
@@ -207,8 +216,8 @@ public class PlayerMovement : MonoBehaviour
 
         float gravity = Physics.gravity.y * -1f;
         Vector3 force = new Vector3(
-            _jumpForce * wallForce * 10f * deltaTime,
-            _jumpForce * gravity * deltaTime,
+            _jumpForce * wallForce * 10f * _remappedTime,
+            _jumpForce * gravity * _remappedTime,
             0f
         );
 
@@ -218,6 +227,7 @@ public class PlayerMovement : MonoBehaviour
     void CompleteJump() {
         _holdingJump = false;
         _resetVelocity = false;
+        _jumpPercentage = 0f;
 
         StartCoroutine(AddJump());
     }
