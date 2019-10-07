@@ -47,12 +47,20 @@ public class PlayerMovement : MonoBehaviour
     private Wall _isTouchingWall = Wall.None;
     private Wall _lastWall = Wall.None;
 
-    private AudioSource _boing;
+    public AudioSource _boing;
+    public AudioSource _bonk;
 
     private enum Wall {
         None,
         Left,
         Right,
+    }
+
+    void PlaySound(AudioSource sound) {
+        if (_abilities.Has(Ability.Sound)) {
+            sound.pitch = Random.Range(0.9f, 1.2f);
+            sound.Play();
+        }
     }
 
     void Awake()
@@ -61,7 +69,6 @@ public class PlayerMovement : MonoBehaviour
         _input = new PlayerInput();
         _rb = GetComponent<Rigidbody>();
         _anim = GetComponent<Animator>();
-        _boing = GetComponent<AudioSource>();
 
         _input.Player.LeftRight.performed += ctx => {
             float v = ctx.ReadValue<float>();
@@ -174,10 +181,7 @@ public class PlayerMovement : MonoBehaviour
 
         _rb.AddForce(new Vector3(_jumpForce * wallForce * 10f, _jumpForce * 9.81f, 0f), ForceMode.Impulse);
 
-        if (_abilities.Has(Ability.Sound)) {
-            _boing.pitch = Random.Range(0.8f, 1.2f);
-            _boing.Play();
-        }
+        PlaySound(_boing);
         
         StartCoroutine(AddJump());
     }
@@ -215,6 +219,11 @@ public class PlayerMovement : MonoBehaviour
     void OnCollisionStay(Collision collision) {
         bool leftWall = false;
         bool rightWall = false;
+        bool isGrounded = false;
+
+        if (_isTouchingGround == true && _isTouchingWall == Wall.None) {
+            isGrounded = true;
+        }
 
         for (int i = 0; i < collision.contactCount; i++)
         {
@@ -226,6 +235,10 @@ public class PlayerMovement : MonoBehaviour
         }
 
         _isTouchingWall = leftWall ? Wall.Left : rightWall ? Wall.Right : Wall.None;
+
+        if (_isTouchingGround && isGrounded && _isTouchingWall != Wall.None) {
+            PlaySound(_bonk);
+        }
 
         if (_isTouchingGround) {
             _lastWall = Wall.None;
