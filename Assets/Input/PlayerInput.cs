@@ -48,6 +48,14 @@ public class PlayerInput : IInputActionCollection
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Quit"",
+                    ""type"": ""Button"",
+                    ""id"": ""d443e26b-c1cb-4995-871d-66fd3cae9762"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -160,6 +168,28 @@ public class PlayerInput : IInputActionCollection
                     ""action"": ""Reset"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""15faf070-7a2d-4c60-af39-ef8035edc8e2"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": ""Hold(duration=1)"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Quit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d639f8a2-33cc-40a2-84d8-b9785e4b196b"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": ""Hold(duration=1)"",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Quit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -189,6 +219,7 @@ public class PlayerInput : IInputActionCollection
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Crouch = m_Player.FindAction("Crouch", throwIfNotFound: true);
         m_Player_Reset = m_Player.FindAction("Reset", throwIfNotFound: true);
+        m_Player_Quit = m_Player.FindAction("Quit", throwIfNotFound: true);
     }
 
     ~PlayerInput()
@@ -242,6 +273,7 @@ public class PlayerInput : IInputActionCollection
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Crouch;
     private readonly InputAction m_Player_Reset;
+    private readonly InputAction m_Player_Quit;
     public struct PlayerActions
     {
         private PlayerInput m_Wrapper;
@@ -250,6 +282,7 @@ public class PlayerInput : IInputActionCollection
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Crouch => m_Wrapper.m_Player_Crouch;
         public InputAction @Reset => m_Wrapper.m_Player_Reset;
+        public InputAction @Quit => m_Wrapper.m_Player_Quit;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -271,6 +304,9 @@ public class PlayerInput : IInputActionCollection
                 Reset.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReset;
                 Reset.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReset;
                 Reset.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReset;
+                Quit.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQuit;
+                Quit.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQuit;
+                Quit.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQuit;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -287,6 +323,9 @@ public class PlayerInput : IInputActionCollection
                 Reset.started += instance.OnReset;
                 Reset.performed += instance.OnReset;
                 Reset.canceled += instance.OnReset;
+                Quit.started += instance.OnQuit;
+                Quit.performed += instance.OnQuit;
+                Quit.canceled += instance.OnQuit;
             }
         }
     }
@@ -315,5 +354,6 @@ public class PlayerInput : IInputActionCollection
         void OnJump(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
         void OnReset(InputAction.CallbackContext context);
+        void OnQuit(InputAction.CallbackContext context);
     }
 }

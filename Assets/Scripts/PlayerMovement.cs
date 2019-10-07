@@ -50,6 +50,8 @@ public class PlayerMovement : MonoBehaviour
     public AudioSource _boing;
     public AudioSource _bonk;
     public AudioSource _oof;
+    public AudioSource _crouching;
+    public AudioSource _relief;
 
     private enum Wall {
         None,
@@ -210,6 +212,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_abilities.Has(Ability.Crouch)) {
             _isCrouching = true;
+            PlaySound(_crouching);
             _anim.SetBool("IsCrouch", true);
         }
     }
@@ -218,6 +221,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_abilities.Has(Ability.Crouch)) {
             _isCrouching = false;
+            PlaySound(_relief);
             _anim.SetBool("IsCrouch", false);
         }
     }

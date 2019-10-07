@@ -27,6 +27,10 @@ public class PlayerAbilities : MonoBehaviour
     [SerializeField]
     private Ability _abilities;
 
+    void Awake() {
+        instance = this;
+    }
+
     public bool Has(Ability ability) {
         return (_abilities & ability) == ability;
     }
@@ -36,7 +40,7 @@ public class PlayerAbilities : MonoBehaviour
         AbilityUnlocked?.Invoke(ability);
     }
 
-    void Awake() {
-        instance = this;
+    public void UnlockAll() {
+        _abilities = (Ability)(-1);
     }
 }
