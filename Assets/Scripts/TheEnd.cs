@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -46,6 +47,7 @@ public class TheEnd : MonoBehaviour
 
         StartCoroutine(LoadEndScene());
         GlobalCamera.instance.SetZoom(6);
+        File.WriteAllText(Path.Combine(Application.persistentDataPath, "newgameplus.dat"), "jim says hello");
     }
 
     IEnumerator LoadEndScene() {
