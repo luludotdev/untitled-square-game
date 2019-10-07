@@ -27,7 +27,6 @@ public class PlayerMovement : MonoBehaviour
 
     private PlayerInput _input;
 
-    [SerializeField]
     private float _targetSpeed = 0f;
     private float _moveSpeed = 0f;
 
