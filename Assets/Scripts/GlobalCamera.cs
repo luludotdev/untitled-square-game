@@ -17,9 +17,11 @@ public class GlobalCamera : MonoBehaviour
 
     public float Zoom => _targetSize;
 
-    void Start() {
+    void Awake() {
         instance = this;
+    }
 
+    void Start() {
         VirtualCamera = GetComponent<CinemachineVirtualCamera>();
         _targetSize = VirtualCamera.m_Lens.OrthographicSize;
     }
