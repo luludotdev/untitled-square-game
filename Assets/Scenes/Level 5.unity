@@ -1203,6 +1203,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _material: {fileID: 2100000, guid: 7c53361eeee45d24daad87407342f810, type: 2}
 --- !u!65 &624969798
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2586,6 +2587,7 @@ MonoBehaviour:
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
+  _material: {fileID: 2100000, guid: 7c53361eeee45d24daad87407342f810, type: 2}
 --- !u!65 &1288209709
 BoxCollider:
   m_ObjectHideFlags: 0

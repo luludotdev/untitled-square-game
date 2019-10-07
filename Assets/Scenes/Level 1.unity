@@ -2597,6 +2597,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _material: {fileID: 2100000, guid: 7c53361eeee45d24daad87407342f810, type: 2}
 --- !u!65 &1434139982
 BoxCollider:
   m_ObjectHideFlags: 0
