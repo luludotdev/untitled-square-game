@@ -668,7 +668,7 @@ MonoBehaviour:
   _crouchMulti: 0.75
   _dragForce: 1
   _targetSpeed: 0
-  _jumpForce: 4.8
+  _jumpForce: 24.8
 --- !u!114 &748572504
 MonoBehaviour:
   m_ObjectHideFlags: 0
