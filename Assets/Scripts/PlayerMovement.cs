@@ -94,6 +94,12 @@ public class PlayerMovement : MonoBehaviour
         _input.Player.Crouch.canceled += ctx => {
             Uncrouch();
         };
+
+        _input.Player.Reset.performed += ctx => {
+            if (_abilities.Has(Ability.Reset)) {
+                SpawnManager.instance.Respawn();
+            }
+        };
     }
 
     void OnEnable()
@@ -179,10 +185,9 @@ public class PlayerMovement : MonoBehaviour
             ? 1f
             : -1f;
 
-        _rb.AddForce(new Vector3(_jumpForce * wallForce * 10f, _jumpForce * 9.81f, 0f), ForceMode.Impulse);
+        _rb.AddForce(new Vector3(_jumpForce * wallForce * 10f, _jumpForce * (Physics.gravity.y * -1f), 0f), ForceMode.Impulse);
 
         PlaySound(_boing);
-        
         StartCoroutine(AddJump());
     }
 

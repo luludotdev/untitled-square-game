@@ -7,10 +7,11 @@ using UnityEngine.Events;
     MoveRight = 1 << 0,
     MoveLeft = 1 << 1,
     Jump = 1 << 2,
-    Crouch = 1 << 3,
-    DoubleJump = 1 << 4,
-    WallCling = 1 << 5,
-    Sound = 1 << 6,
+    Reset = 1 << 3,
+    Crouch = 1 << 4,
+    DoubleJump = 1 << 5,
+    WallCling = 1 << 6,
+    Sound = 1 << 7,
 }
 
 [System.Serializable]
