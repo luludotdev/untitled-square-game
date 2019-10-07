@@ -1,4 +1,5 @@
 using System;
+using System.Text.RegularExpressions;
 using System.Collections;
 using UnityEngine;
 
@@ -52,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
         Right,
     }
 
+    private float _maxJumpDuration = 0.5f;
     private bool _holdingJump = false;
     private bool _resetVelocity = false;
 
@@ -61,6 +63,8 @@ public class PlayerMovement : MonoBehaviour
         _input = new PlayerInput();
         _rb = GetComponent<Rigidbody>();
         _anim = GetComponent<Animator>();
+
+        ParseHoldTime();
 
         _input.Player.LeftRight.performed += ctx => {
             float v = ctx.ReadValue<float>();
@@ -100,6 +104,17 @@ public class PlayerMovement : MonoBehaviour
                 SpawnManager.instance.Respawn();
             }
         };
+    }
+
+    void ParseHoldTime() {
+        Regex timeRX = new Regex(@"Hold\(duration=(.+)\)");
+        Match match = timeRX.Match(_input.Player.Jump.interactions);
+        if (match.Success == false) return;
+
+        string matched = match.Groups[1].Value;
+        float.TryParse(matched, out float parsed);
+
+        _maxJumpDuration = parsed;
     }
 
     void OnEnable()
