@@ -20,9 +20,13 @@ public class SceneTrigger : MonoBehaviour
     [SerializeField]
     private BoxCollider _collider;
 
+    private Scene _mainScene;
+
     void Start() {
         _collider = GetComponent<BoxCollider>();
         _collider.isTrigger = true;
+
+        _mainScene = SceneManager.GetSceneByName("Main");
     }
 
     void OnTriggerEnter(Collider other)
@@ -44,6 +48,10 @@ public class SceneTrigger : MonoBehaviour
 
     IEnumerator UnloadScene(Scene scene) {
         if (!scene.isLoaded) yield break;
+
+        var player = GameObject.FindGameObjectWithTag("Player");
+        if (player.scene != _mainScene) DontDestroyOnLoad(player);
+
         AsyncOperation asyncLoad = SceneManager.UnloadSceneAsync(_scene);
 
         while (!asyncLoad.isDone)
