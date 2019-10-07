@@ -226,6 +226,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _collider: {fileID: 176056036}
+  _material: {fileID: 0}
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
@@ -323,6 +324,8 @@ MonoBehaviour:
     Target: {r: 0.29411766, g: 0.59607846, b: 0.94509804, a: 1}
   - Material: {fileID: 2100000, guid: 933eb0e256578b04d9104d340269933c, type: 2}
     Target: {r: 0.16470589, g: 0.06274511, b: 0.08326273, a: 1}
+  - Material: {fileID: 2100000, guid: 7c53361eeee45d24daad87407342f810, type: 2}
+    Target: {r: 1, g: 0, b: 0.19129372, a: 1}
 --- !u!114 &189849985
 MonoBehaviour:
   m_ObjectHideFlags: 0
