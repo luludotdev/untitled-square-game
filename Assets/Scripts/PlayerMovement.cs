@@ -38,6 +38,10 @@ public class PlayerMovement : MonoBehaviour
     [Range(1f, 50f)]
     private float _jumpForce = 5f;
 
+    [SerializeField]
+    [Range(0.001f, 0.999f)]
+    private float _jumpFalloff = 0.8f;
+
     private int _currentJumps = 0;
 
     private bool _isTouchingGround = false;
@@ -201,11 +205,12 @@ public class PlayerMovement : MonoBehaviour
             _rb.velocity = new Vector3(_rb.velocity.x, 0f, _rb.velocity.z);
         }
 
-        float _remappedTime = deltaTime == -1f
+        float remappedTime = deltaTime == -1f
             ? 1f - _jumpPercentage
             : deltaTime / _maxJumpDuration;
 
-        _jumpPercentage += _remappedTime;
+        _jumpPercentage += remappedTime;
+        float curvedForce = remappedTime * Mathf.Pow(_jumpPercentage, _jumpFalloff);
 
         float wallForce = _isTouchingWall == Wall.None
             ? 0f
@@ -215,8 +220,8 @@ public class PlayerMovement : MonoBehaviour
 
         float gravity = Physics.gravity.y * -1f;
         Vector3 force = new Vector3(
-            _jumpForce * wallForce * 10f * _remappedTime,
-            _jumpForce * gravity * _remappedTime,
+            _jumpForce * wallForce * 10f * curvedForce,
+            _jumpForce * gravity * curvedForce,
             0f
         );
 
