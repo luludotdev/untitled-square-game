@@ -241,9 +241,9 @@ public class PlayerMovement : MonoBehaviour
 
         _isTouchingWall = leftWall ? Wall.Left : rightWall ? Wall.Right : Wall.None;
 
-        if (_isTouchingGround && isGrounded && _isTouchingWall != Wall.None) {
-            PlaySound(_bonk);
-        }
+        // if (_isTouchingGround && isGrounded && _isTouchingWall != Wall.None) {
+        //     PlaySound(_bonk);
+        // }
 
         if (_isTouchingGround) {
             _lastWall = Wall.None;

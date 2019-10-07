@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -8157,7 +8157,7 @@ GameObject:
   - component: {fileID: 1717111409}
   - component: {fileID: 1717111408}
   m_Layer: 0
-  m_Name: Trigger_Colour
+  m_Name: Trigger_Sound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8172,11 +8172,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1717111407}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6bf30fd6d23f724fa95813e74a48f5d, type: 3}
+  m_Script: {fileID: 11500000, guid: 5c4166036ba3abd4e866b4545f59e694, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 0
   _collider: {fileID: 1717111409}
+  _ability: 128
+  _canvas: {fileID: 0}
+  _canvasFadeMultiplier: 1.5
 --- !u!65 &1717111409
 BoxCollider:
   m_ObjectHideFlags: 0
