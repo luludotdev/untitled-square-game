@@ -1,6 +1,7 @@
-using System;
+﻿using System;
 using System.Collections;
 using UnityEngine;
+using Random=UnityEngine.Random;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(PlayerAbilities))]
@@ -46,10 +47,20 @@ public class PlayerMovement : MonoBehaviour
     private Wall _isTouchingWall = Wall.None;
     private Wall _lastWall = Wall.None;
 
+    public AudioSource _boing;
+    public AudioSource _bonk;
+
     private enum Wall {
         None,
         Left,
         Right,
+    }
+
+    void PlaySound(AudioSource sound) {
+        if (_abilities.Has(Ability.Sound)) {
+            sound.pitch = Random.Range(0.9f, 1.2f);
+            sound.Play();
+        }
     }
 
     void Awake()
@@ -175,6 +186,8 @@ public class PlayerMovement : MonoBehaviour
             : -1f;
 
         _rb.AddForce(new Vector3(_jumpForce * wallForce * 10f, _jumpForce * (Physics.gravity.y * -1f), 0f), ForceMode.Impulse);
+
+        PlaySound(_boing);
         StartCoroutine(AddJump());
     }
 
@@ -211,6 +224,11 @@ public class PlayerMovement : MonoBehaviour
     void OnCollisionStay(Collision collision) {
         bool leftWall = false;
         bool rightWall = false;
+        bool isGrounded = false;
+
+        if (_isTouchingGround == true && _isTouchingWall == Wall.None) {
+            isGrounded = true;
+        }
 
         for (int i = 0; i < collision.contactCount; i++)
         {
@@ -222,6 +240,10 @@ public class PlayerMovement : MonoBehaviour
         }
 
         _isTouchingWall = leftWall ? Wall.Left : rightWall ? Wall.Right : Wall.None;
+
+        if (_isTouchingGround && isGrounded && _isTouchingWall != Wall.None) {
+            PlaySound(_bonk);
+        }
 
         if (_isTouchingGround) {
             _lastWall = Wall.None;

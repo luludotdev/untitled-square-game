@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -669,6 +669,8 @@ MonoBehaviour:
   _dragForce: 1
   _targetSpeed: 0
   _jumpForce: 4.8
+  _boing: {fileID: 0}
+  _bonk: {fileID: 0}
 --- !u!114 &748572504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -681,6 +683,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680a28e73d7ec3d40bc4d974e3bf37cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AbilityUnlocked:
+    m_PersistentCalls:
+      m_Calls: []
   _abilities: 0
 --- !u!54 &748572505
 Rigidbody:
@@ -1011,7 +1016,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh18992
+  m_Name: pb_Mesh29892
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

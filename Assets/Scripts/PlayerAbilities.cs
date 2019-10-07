@@ -11,13 +11,18 @@ using UnityEngine.Events;
     Crouch = 1 << 4,
     DoubleJump = 1 << 5,
     WallCling = 1 << 6,
+    Sound = 1 << 7,
 }
+
+[System.Serializable]
+ public class AbilityEvent : UnityEvent<Ability>{}
 
 public class PlayerAbilities : MonoBehaviour
 {
     public static PlayerAbilities instance;
 
-    public UnityAction<Ability> AbilityUnlocked;
+    [SerializeField]
+    public AbilityEvent AbilityUnlocked;
 
     [SerializeField]
     private Ability _abilities;
