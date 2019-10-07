@@ -36,6 +36,14 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Quit",
+                    "type": "Button",
+                    "id": "d443e26b-c1cb-4995-871d-66fd3cae9762",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -146,6 +154,28 @@
                     "processors": "",
                     "groups": "Controller",
                     "action": "Reset",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "15faf070-7a2d-4c60-af39-ef8035edc8e2",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "Hold(duration=1)",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Quit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d639f8a2-33cc-40a2-84d8-b9785e4b196b",
+                    "path": "<Gamepad>/select",
+                    "interactions": "Hold(duration=1)",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Quit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
