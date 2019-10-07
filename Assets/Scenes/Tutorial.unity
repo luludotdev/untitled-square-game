@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1615,7 +1615,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh30936
+  m_Name: pb_Mesh62322
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2157,7 +2157,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh30860
+  m_Name: pb_Mesh62246
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2353,7 +2353,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh30906
+  m_Name: pb_Mesh62292
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4863,7 +4863,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh30970
+  m_Name: pb_Mesh62356
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
