@@ -215,10 +215,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _collider: {fileID: 176056036}
+  _material: {fileID: 0}
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
-  _material: {fileID: 2100000, guid: 7c53361eeee45d24daad87407342f810, type: 2}
 --- !u!65 &176056036
 BoxCollider:
   m_ObjectHideFlags: 0
