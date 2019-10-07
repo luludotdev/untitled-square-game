@@ -12,6 +12,21 @@ public class GameStarter : MonoBehaviour
         SceneManager.LoadSceneAsync(_mainScene);
     }
 
+    public void StartGamePlus() {
+        StartCoroutine(StartGamePlusAsync());
+    }
+
+    IEnumerator StartGamePlusAsync() {
+        DontDestroyOnLoad(this);
+
+        var task = SceneManager.LoadSceneAsync(_mainScene);
+        while (!task.isDone) yield return null;
+
+        // Do stuff
+
+        Destroy(this);
+    }
+
     public void QuitGame() {
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
