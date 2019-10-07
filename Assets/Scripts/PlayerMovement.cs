@@ -1,12 +1,11 @@
 using System;
-using System.Text.RegularExpressions;
 using System.Collections;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(PlayerAbilities))]
-public class PlayerMovement : MonoBehaviour
-{
+public class PlayerMovement : MonoBehaviour {
     private PlayerAbilities _abilities;
 
     [SerializeField]
@@ -61,8 +60,7 @@ public class PlayerMovement : MonoBehaviour
     private float _jumpPercentage = 0f;
     private bool _resetVelocity = false;
 
-    void Awake()
-    {
+    void Awake() {
         _abilities = GetComponent<PlayerAbilities>();
         _input = new PlayerInput();
         _rb = GetComponent<Rigidbody>();
@@ -123,13 +121,11 @@ public class PlayerMovement : MonoBehaviour
         _maxJumpDuration = parsed;
     }
 
-    void OnEnable()
-    {
+    void OnEnable() {
         _input.Player.Enable();
     }
 
-    void OnDisable()
-    {
+    void OnDisable() {
         _input.Player.Disable();
     }
 
@@ -137,27 +133,25 @@ public class PlayerMovement : MonoBehaviour
         transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
     }
 
-    void FixedUpdate()
-    {
+    void FixedUpdate() {
         if (_holdingJump) Jump(Time.deltaTime);
 
-        float speed = _isCrouching
-            ? _targetSpeed * _crouchMulti
-            : _targetSpeed;
+        float speed = _isCrouching ?
+            _targetSpeed * _crouchMulti :
+            _targetSpeed;
 
         Vector3 force = new Vector3(speed, 0f, 0f);
         bool canCling = _abilities.Has(Ability.WallCling);
         bool isCling = false;
 
-
         if (_isTouchingWall == Wall.None) {
             _rb.AddForce(force, ForceMode.Impulse);
         } else if (canCling) {
-            int jumpsAvailable = _abilities.Has(Ability.DoubleJump)
-                ? 2
-                : _abilities.Has(Ability.Jump)
-                ? 1
-                : 0;
+            int jumpsAvailable = _abilities.Has(Ability.DoubleJump) ?
+                2 :
+                _abilities.Has(Ability.Jump) ?
+                1 :
+                0;
 
             if (_currentJumps < jumpsAvailable) {
                 _rb.AddForce(force, ForceMode.Impulse);
@@ -190,13 +184,12 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void Jump(float deltaTime)
-    {
-        int jumpsAvailable = _abilities.Has(Ability.DoubleJump)
-            ? 2
-            : _abilities.Has(Ability.Jump)
-            ? 1
-            : 0;
+    void Jump(float deltaTime) {
+        int jumpsAvailable = _abilities.Has(Ability.DoubleJump) ?
+            2 :
+            _abilities.Has(Ability.Jump) ?
+            1 :
+            0;
 
         if (_currentJumps >= jumpsAvailable) return;
 
@@ -205,18 +198,18 @@ public class PlayerMovement : MonoBehaviour
             _rb.velocity = new Vector3(_rb.velocity.x, 0f, _rb.velocity.z);
         }
 
-        float remappedTime = deltaTime == -1f
-            ? 1f - _jumpPercentage
-            : deltaTime / _maxJumpDuration;
+        float remappedTime = deltaTime == -1f ?
+            1f - _jumpPercentage :
+            deltaTime / _maxJumpDuration;
 
         _jumpPercentage += remappedTime;
         float curvedForce = remappedTime * Mathf.Pow(_jumpPercentage, _jumpFalloff);
 
-        float wallForce = _isTouchingWall == Wall.None
-            ? 0f
-            : _isTouchingWall == Wall.Left
-            ? 1f
-            : -1f;
+        float wallForce = _isTouchingWall == Wall.None ?
+            0f :
+            _isTouchingWall == Wall.Left ?
+            1f :
+            -1f;
 
         float gravity = Physics.gravity.y * -1f;
         Vector3 force = new Vector3(
@@ -246,16 +239,14 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void Crouch()
-    {
+    void Crouch() {
         if (_abilities.Has(Ability.Crouch)) {
             _isCrouching = true;
             _anim.SetBool("IsCrouch", true);
         }
     }
 
-    void Uncrouch()
-    {
+    void Uncrouch() {
         if (_abilities.Has(Ability.Crouch)) {
             _isCrouching = false;
             _anim.SetBool("IsCrouch", false);
@@ -270,8 +261,7 @@ public class PlayerMovement : MonoBehaviour
         bool leftWall = false;
         bool rightWall = false;
 
-        for (int i = 0; i < collision.contactCount; i++)
-        {
+        for (int i = 0; i < collision.contactCount; i++) {
             ContactPoint contact = collision.GetContact(i);
             if (contact.normal.y == 1f) _isTouchingGround = true;
 
