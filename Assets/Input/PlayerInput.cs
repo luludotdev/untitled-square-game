@@ -31,7 +31,7 @@ public class PlayerInput : IInputActionCollection
                     ""id"": ""f3d57525-76e4-4bd9-b07f-e578f15c8e65"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Hold(duration=0.25)""
                 },
                 {
                     ""name"": ""Crouch"",

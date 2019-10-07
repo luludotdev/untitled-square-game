@@ -52,6 +52,9 @@ public class PlayerMovement : MonoBehaviour
         Right,
     }
 
+    private bool _holdingJump = false;
+    private bool _resetVelocity = false;
+
     void Awake()
     {
         _abilities = GetComponent<PlayerAbilities>();
@@ -72,8 +75,16 @@ public class PlayerMovement : MonoBehaviour
             _targetSpeed = 0f;
         };
 
+        _input.Player.Jump.started += ctx => {
+            _holdingJump = true;
+        };
+
         _input.Player.Jump.performed += ctx => {
-            Jump();
+            CompleteJump();
+        };
+
+        _input.Player.Jump.canceled += ctx => {
+            CompleteJump();
         };
 
         _input.Player.Crouch.performed += ctx => {
@@ -102,6 +113,8 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void Update() {
+        if (_holdingJump) Jump(Time.deltaTime);
+
         transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
     }
 
@@ -156,7 +169,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void Jump()
+    void Jump(float deltaTime)
     {
         int jumpsAvailable = _abilities.Has(Ability.DoubleJump)
             ? 2
@@ -166,7 +179,10 @@ public class PlayerMovement : MonoBehaviour
 
         if (_currentJumps >= jumpsAvailable) return;
 
-        _rb.velocity = new Vector3(_rb.velocity.x, 0f, _rb.velocity.z);
+        if (_resetVelocity == false) {
+            _resetVelocity = true;
+            _rb.velocity = new Vector3(_rb.velocity.x, 0f, _rb.velocity.z);
+        }
 
         float wallForce = _isTouchingWall == Wall.None
             ? 0f
@@ -174,7 +190,20 @@ public class PlayerMovement : MonoBehaviour
             ? 1f
             : -1f;
 
-        _rb.AddForce(new Vector3(_jumpForce * wallForce * 10f, _jumpForce * (Physics.gravity.y * -1f), 0f), ForceMode.Impulse);
+        float gravity = Physics.gravity.y * -1f;
+        Vector3 force = new Vector3(
+            _jumpForce * wallForce * 10f * deltaTime,
+            _jumpForce * gravity * deltaTime,
+            0f
+        );
+
+        _rb.AddForce(force, ForceMode.Impulse);
+    }
+
+    void CompleteJump() {
+        _holdingJump = false;
+        _resetVelocity = false;
+
         StartCoroutine(AddJump());
     }
 
