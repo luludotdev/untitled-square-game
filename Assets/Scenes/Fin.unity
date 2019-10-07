@@ -126,7 +126,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh80692
+  m_Name: pb_Mesh46258
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -351,8 +351,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -408,7 +408,7 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: -0.21367073, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 294463874}
     characterCount: 21
@@ -504,7 +504,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 146, y: -1.0900005}
+  m_AnchoredPosition: {x: 135, y: 9.41}
   m_SizeDelta: {x: 17.537, y: 8.963}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &464787101
@@ -565,7 +565,18 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: jesus christ derpy
+  m_text: 'Life is not like a videogame. Life can be challenging.
+
+    Life can be stressful. Life can knock you down when you have
+
+    nothing left.
+
+
+    But those who stand back up, and use their past knowledge to
+
+    enable themselves to overcome the next obstacle,
+
+    will go far.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: de0eee5f755bb694e8dd6f2a0a7df02a, type: 2}
   m_sharedMaterial: {fileID: -6392841568216431798, guid: de0eee5f755bb694e8dd6f2a0a7df02a,
@@ -575,8 +586,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -632,15 +643,15 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 0, w: 2.7375479}
   m_textInfo:
     textComponent: {fileID: 464787103}
-    characterCount: 18
+    characterCount: 253
     spriteCount: 0
-    spaceCount: 2
-    wordCount: 3
+    spaceCount: 46
+    wordCount: 46
     linkCount: 0
-    lineCount: 1
+    lineCount: 7
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -728,7 +739,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 146.049, y: 3.018999}
+  m_AnchoredPosition: {x: 135.049, y: 13.518999}
   m_SizeDelta: {x: 17.537, y: 8.963}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &665897680
@@ -997,7 +1008,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 5eb5278877bee7348b9a134d27726ae9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1034,7 +1045,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 665897680}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 110, y: -12.5, z: 0.5}
+  m_LocalPosition: {x: 99, y: -2, z: 0.5}
   m_LocalScale: {x: 72, y: 11, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1306,7 +1317,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 5eb5278877bee7348b9a134d27726ae9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1343,7 +1354,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 846185585}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 110, y: -1.5, z: 0.5}
+  m_LocalPosition: {x: 99, y: 9, z: 0.5}
   m_LocalScale: {x: 27, y: 9, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1615,7 +1626,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 5eb5278877bee7348b9a134d27726ae9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1652,7 +1663,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 987854523}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 110, y: 7.5, z: 0.5}
+  m_LocalPosition: {x: 99, y: 18, z: 0.5}
   m_LocalScale: {x: 72, y: 11, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1924,7 +1935,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 5eb5278877bee7348b9a134d27726ae9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1961,7 +1972,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1213560633}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 155, y: -1.5, z: 0.5}
+  m_LocalPosition: {x: 144, y: 9, z: 0.5}
   m_LocalScale: {x: 27, y: 9, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1973,7 +1984,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh80680
+  m_Name: pb_Mesh51990
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2136,7 +2147,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh80704
+  m_Name: pb_Mesh52014
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2299,7 +2310,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh80668
+  m_Name: pb_Mesh51978
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
