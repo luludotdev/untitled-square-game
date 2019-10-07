@@ -9,6 +9,9 @@ public class MovingPlatform : MonoBehaviour
     [Range(0.0005f, 10f)]
     private float _speed = 1f;
 
+    [SerializeField]
+    private float _startOffset = 0f;
+
     [DraggablePoint]
     public Vector3 _position1;
     [DraggablePoint]
@@ -17,7 +20,7 @@ public class MovingPlatform : MonoBehaviour
     private Scene? _scene;
 
     void Update() {
-        float sin = (Mathf.Sin(Time.time * _speed) + 1f) * 0.5f;
+        float sin = (Mathf.Sin((Time.time + _startOffset) * _speed) + 1f) * 0.5f;
         transform.position = Vector3.Lerp(_position1, _position2, sin);
     }
 
